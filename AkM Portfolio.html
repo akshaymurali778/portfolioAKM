@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshay_M - Visual Storyteller & Photographer Portfolio</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden;line-height:1.6}
+        .cursor{position:fixed;left:0;top:0;width:20px;height:20px;border:2px solid #ff6b6b;border-radius:50%;pointer-events:none;z-index:9999;transition:all .1s ease;mix-blend-mode:difference}
+        @media (pointer: coarse) {
+            .cursor { display: none !important; }
+        }
+        .navbar{position:fixed;top:0;width:100%;padding:20px 50px;background:rgba(10,10,10,.95);backdrop-filter:blur(15px);z-index:1000;transition:all .3s ease;border-bottom:1px solid rgba(255,255,255,.1)}
+        .nav-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:28px;font-weight:bold;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px}
+        .nav-links{display:flex;gap:35px}
+        .nav-links a{color:#fff;text-decoration:none;font-weight:500;transition:all .3s ease;position:relative;padding:5px 0}
+        .nav-links a:hover{color:#ff6b6b;transform:translateY(-2px)}
+        .nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);transition:width .3s ease}
+        .nav-links a:hover::after{width:100%}
+        .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(78,205,196,.1))}
+        .hero-content{text-align:center;z-index:2}
+        .hero h1{font-size:4.5rem;margin-bottom:20px;background:linear-gradient(45deg,#fff,#ff6b6b,#4ecdc4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:glow 3s ease-in-out infinite alternate;font-weight:700}
+        @keyframes glow{from{text-shadow:0 0 20px rgba(255,107,107,.5);filter:brightness(1)}to{text-shadow:0 0 40px rgba(78,205,196,.8);filter:brightness(1.2)}}
+        .hero p{font-size:1.4rem;opacity:.9;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
+        .cta-button{padding:18px 45px;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);border:none;border-radius:50px;color:#fff;font-weight:bold;cursor:pointer;transition:all .4s ease;text-decoration:none;display:inline-block;font-size:1.1rem;box-shadow:0 5px 20px rgba(255,107,107,.3)}
+        .cta-button:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(255,107,107,.5);filter:brightness(1.1)}
+        .floating-elements{position:absolute;width:100%;height:100%;overflow:hidden}
+        .floating-element{position:absolute;opacity:.15;animation:float 8s ease-in-out infinite;font-size:2rem}
+        .floating-element:nth-child(1){top:15%;left:10%;animation-delay:0s}
+        .floating-element:nth-child(2){top:70%;right:15%;animation-delay:2s}
+        .floating-element:nth-child(3){bottom:25%;left:25%;animation-delay:4s;}
+        .floating-element:nth-child(4){top:40%;right:30%;animation-delay:6s;}
+        @keyframes float{0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:.1}50%{transform:translateY(-30px) rotate(180deg) scale(1.2);opacity:.2}}
+        .section{padding:80px 50px;background:linear-gradient(135deg,rgba(255,107,107,.05),rgba(78,205,196,.05))}
+        .about-content{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center}
+        .about-image{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+        .about-image::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,rgba(255,107,107,.2),rgba(78,205,196,.2));z-index:1}
+        .about-image img{width:100%;height:500px;object-fit:cover;transition:transform .4s ease}
+        .about-image:hover img{transform:scale(1.05)}
+        .title{font-size:3rem;margin-bottom:30px;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-align:center;font-weight:700}
+        .about-text p{font-size:1.1rem;line-height:1.8;opacity:.9;margin-bottom:25px}
+        .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:30px}
+        .skill-item{padding:15px 20px;background:rgba(255,255,255,.05);border-radius:10px;border-left:4px solid #ff6b6b;transition:all .3s ease}
+        .skill-item:hover{background:rgba(255,107,107,.1);transform:translateX(10px)}
+        .portfolio-grid{max-width:1400px;margin:0 auto}
+        .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;margin-top:40px}
+        .gallery-item{position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;cursor:pointer;transition:all .4s ease;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+        .gallery-item:hover{transform:scale(1.05) rotate(1deg)}
+        .gallery-item img{width:100%;height:100%;object-fit:cover;transition:all .4s ease}
+        .gallery-item:hover img{transform:scale(1.15);filter:brightness(1.1)}
+        .gallery-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,rgba(255,107,107,.85),rgba(78,205,196,.85));display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:all .4s ease}
+        .gallery-item:hover .gallery-overlay{opacity:1}
+        .overlay-text{text-align:center;font-weight:bold;font-size:1.3rem;margin-bottom:10px}
+        .overlay-category{font-size:.9rem;opacity:.8;text-transform:uppercase;letter-spacing:1px}
+        .contact-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;margin-top:50px;max-width:1000px;margin-left:auto;margin-right:auto}
+        .contact-item{display:flex;flex-direction:column;align-items:center;gap:15px;padding:30px 20px;background:rgba(255,255,255,.05);border-radius:15px;transition:all .3s ease;border:1px solid rgba(255,255,255,.1)}
+        .contact-item:hover{transform:translateY(-5px);background:rgba(255,107,107,.1);border-color:#ff6b6b}
+        .contact-icon{width:60px;height:60px;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 10px 30px rgba(255,107,107,.3)}
+        .contact-link{color:#4ecdc4;text-decoration:none;transition:all .3s ease}
+        .contact-link:hover{color:#ff6b6b;text-decoration:underline}
+        .footer{text-align:center;padding:50px 20px;background:#050505;border-top:1px solid rgba(255,255,255,.1);opacity:.7}
+        @media (max-width:768px){
+            .hero h1{font-size:2.8rem}
+            .navbar{padding:15px 20px}
+            .logo{font-size:24px}
+            .nav-links{gap:20px}
+            .about-content{grid-template-columns:1fr;gap:40px;text-align:center}
+            .title{font-size:2.5rem}
+            .skills-grid{grid-template-columns:1fr}
+            .section{padding:60px 20px}
+            .gallery{grid-template-columns:1fr}
+            .contact-info{grid-template-columns:1fr;gap:20px}
+        }
+        @media (max-width:480px){
+            .hero h1{font-size:2.2rem}
+            .hero p{font-size:1.1rem}
+            .title{font-size:2rem}
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Akshay_M</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#works">Works</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="floating-elements">
+            <div class="floating-element">📸</div>
+            <div class="floating-element">✨</div>
+            <div class="floating-element">🎨</div>
+            <div class="floating-element">🌟</div>
+        </div>
+        <div class="hero-content">
+            <h1>Visual Storyteller</h1>
+            <p>Capturing moments that matter, creating memories that last forever through the art of photography</p>
+            <a href="#about" class="cta-button">Discover My Journey</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="images/IMG_7310.JPG" alt="Akshay M - Photographer">
+            </div>
+            <div class="about-text">
+                <h2 class="title">About Me</h2>
+                <p>I'm a dynamic creative professional with 2 years of experience leading visual initiatives, specializing in photography, videography, and graphic design. My passion lies in conceptualizing and executing innovative content strategies that captivate audiences and elevate brands.</p>
+                <p>As a dedicated content creator, I excel at developing engaging visual assets. I'm highly proficient in Adobe Photoshop and Illustrator, crafting compelling graphics that drive audience engagement and enhance brand recognition.</p>
+                <div class="skills-grid">
+                    <div class="skill-item"><strong>Adobe Lightroom & Photoshop</strong></div>
+                    <div class="skill-item"><strong>Premiere Pro & After Effects</strong></div>
+                    <div class="skill-item"><strong>Product Photography</strong></div>
+                    <div class="skill-item"><strong>Event Documentation</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="works" class="section">
+        <div class="portfolio-grid">
+            <h2 class="title">Works</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="images/XLC_0978.jpeg" alt="Professional Project">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Professional Project</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6441.jpg" alt="Event Photography">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Event Photography</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6658.jpg" alt="Event Coverage">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Event Coverage</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_5716.jpg" alt="Event Documentation">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Event Documentation</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_8694.jpg" alt="Event Highlight">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Event Highlight</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6937.jpg" alt="Event Memory">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Event Memory</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_5717.jpg" alt="Creative Photography">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Creative Portrait</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6466.jpg" alt="Candid Moment">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Natural Expression</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6668.jpg" alt="Artistic Shot">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Artistic Vision</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6657.jpg" alt="Portrait Work">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Portrait Excellence</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6661.jpg" alt="Creative Photography">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Creative Expression</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_5720.jpg" alt="Candid Capture">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Candid Capture</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_8922.jpg" alt="Creative Vision">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Creative Vision</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6465.jpg" alt="Portrait Photography">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Portrait Photography</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6468.jpg" alt="Creative Capture">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Creative Capture</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6670.jpg" alt="Professional Work">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Professional Work</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6935.jpg" alt="Event Photography">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Event Photography</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6936.jpg" alt="Professional Capture">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Professional Capture</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_8902.jpg" alt="Creative Photography">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Creative Photography</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/FD1F6535-84D9-4DA0-987E-3F3DF4E77781.png" alt="Professional Design">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Professional Design</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/DSC02502.JPG" alt="Photography Work">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Photography Work</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_9666.jpg" alt="Creative Shot">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Creative Shot</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_6672.jpeg" alt="Event Highlight">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">Event Highlight</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_9972.jpg" alt="IMG_9972">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">IMG_9972</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_9933.jpg" alt="IMG_9933">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">IMG_9933</div>
+                    </div>
+                </div>
+                <!-- New gallery items -->
+                <div class="gallery-item">
+                    <img src="images/DSC01507.jpg" alt="DSC01507">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">DSC01507</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/DSC01443.jpg" alt="DSC01443">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">DSC01443</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/DSC01438.jpg" alt="DSC01438">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">DSC01438</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/DSC01364.jpg" alt="DSC01364">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">DSC01364</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/1000103345-2.jpg" alt="1000103345-2">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">1000103345-2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="title">Let's Create Something Amazing</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div><strong>Email</strong><br><a href="mailto:akshaymuralidxb@gmail.com" class="contact-link">akshaymuralidxb@gmail.com</a></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div><strong>Phone</strong><br><a href="tel:+971588344192" class="contact-link">+971 58 834 4192</a></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">🌐</div>
+                <div><strong>Business Profile</strong><br><a href="https://g.co/kgs/Hnh3YKY" target="_blank" class="contact-link">View on Google</a></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> Akshay_M Photography. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Only enable custom cursor on non-touch devices
+        function isTouchDevice() {
+            return window.matchMedia('(pointer: coarse)').matches;
+        }
+
+        const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+        let animationFrameId = null;
+        let isCursorAnimating = true;
+
+        if (!isTouchDevice() && cursor) {
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                if (!isCursorAnimating) return;
+                if (cursor) {
+                    cursorX += (mouseX - cursorX) * 0.1;
+                    cursorY += (mouseY - cursorY) * 0.1;
+                    cursor.style.left = cursorX + 'px';
+                    cursor.style.top = cursorY + 'px';
+                    animationFrameId = requestAnimationFrame(animateCursor);
+                }
+            }
+            animateCursor();
+
+            window.addEventListener('blur', () => {
+                isCursorAnimating = false;
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+                if (cursor) cursor.style.opacity = '0';
+            });
+
+            window.addEventListener('focus', () => {
+                isCursorAnimating = true;
+                if (cursor) cursor.style.opacity = '1';
+                animateCursor();
+            });
+        } else if (cursor) {
+            cursor.style.display = 'none';
+        }
+
+        document.addEventListener('click', function(e) {
+            const anchor = e.target.closest('a[href^="#"]');
+            if (anchor) {
+                const href = anchor.getAttribute('href');
+                if (href.length > 1) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.style.background = window.scrollY > 100 ? 'rgba(10,10,10,.98)' : 'rgba(10,10,10,.95)';
+            }
+        });
+        
+        // Set current year in footer
+        const yearElem = document.getElementById('year');
+        if (yearElem) {
+            yearElem.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>
